@@ -178,6 +178,7 @@ function showPersonalDetails(person) {
   divAddBtnContainer.classList.remove("hidden");
 
   divShowPersonalDetails.innerHTML = `
+  <h3> Your info : </h3>
         Height   :  ${person.height} cm<br>
         Weight   :  ${person.weight} kg<br>
         Age      :  ${person.age}  years<br>
@@ -227,8 +228,8 @@ function refreshFoodList(food, action) {
 
   if (foodsList.length > 0) {
 
-    
-    divFoodList.innerHTML = `<h3> Your foods </h3>`;
+    divShowFoodContainer.classList.remove("hidden");
+    //divFoodList.innerHTML = `<h3> Food eaten </h3>`;
     for (const food of foodsList) {
       console.log(`${food.name} 👈 fnmae`);
       divFoodList.innerHTML += `
@@ -243,7 +244,11 @@ function refreshFoodList(food, action) {
     divFoodProgress.innerHTML = `${caloriesConsumedToday< localStorage.getItem('recomendedCalories') ? '👍':'⚠'}${caloriesConsumedToday}kCal / ${localStorage.getItem(
       "recomendedCalories"
     )} kCal`;
+    divFoodProgress.style.backgroundImage = `linear-gradient(top, red, red 70%, transparent 70%, transparent 100%)`
     divWaterProgress.innerHTML = `${waterConsumedToday > 1600 ? '👍' : '⚠'}  ${waterConsumedToday}mL / 2000 mL`;
     //alert(localStorage.getItem(recomendedCalories));
+  }
+  else{
+    divShowFoodContainer.classList.add("hidden");
   }
 }

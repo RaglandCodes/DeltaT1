@@ -14,9 +14,9 @@
 
     <select id="activity-select">
         <option value=""> Choose physical activity</option>
-        <option value="1.53">👨‍💻 Sedentary / light activity</option>
-        <option value="1.76">🚶‍♂️️ Moderately active</option>
-        <option value="2.25">🚴‍♂️ Vigorously active</option>
+        <option value="1.53"> Sedentary / light activity</option>
+        <option value="1.76">️ Moderately active</option>
+        <option value="2.25"> Vigorously active</option>
     </select><br>
     <select id="gender-select">
         <option value=""> Choose gender</option>
@@ -51,9 +51,15 @@
 </div>
 
 
-<div id="show-food-info">
-    <div id="food-progess"></div>
-    <div id="water-progess"></div> 
+<div id="show-food-info" class="hidden">
+    <h3> Food Info </h3>
+
+    Calories consumed today :
+    <div id="food-progess" class="progress"></div>
+    <br>
+    Water consumed today :
+    <div id="water-progess" class="progress"></div> 
+    <br>
     <div id="show-food-list">
 
     </div>
