@@ -1,1 +1,3 @@
 Check for negative inputs
+
+Ability to clear all values
