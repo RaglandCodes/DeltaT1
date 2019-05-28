@@ -121,7 +121,7 @@ btnSubmitPersonalInfo.addEventListener("click", () => {
             ? "Moderately active"
             : "Vigorously active"
         } <br>
-        Recomended Calories per day : ${person.dailyCalories}
+        Recomended Calories per day : ${Math.floor(person.dailyCalories)}
         <br><br>
         <button id="edit-personal-details" onClick="editPersonelDetails()">Edit personal details</button>
         `;
@@ -244,7 +244,7 @@ function refreshFoodList(food, action) {
     divFoodProgress.innerHTML = `${caloriesConsumedToday< localStorage.getItem('recomendedCalories') ? '👍':'⚠'}${caloriesConsumedToday}kCal / ${localStorage.getItem(
       "recomendedCalories"
     )} kCal`;
-    divFoodProgress.style.backgroundImage = `linear-gradient(top, red, red 70%, transparent 70%, transparent 100%)`
+    
     divWaterProgress.innerHTML = `${waterConsumedToday > 1600 ? '👍' : '⚠'}  ${waterConsumedToday}mL / 2000 mL`;
     //alert(localStorage.getItem(recomendedCalories));
   }

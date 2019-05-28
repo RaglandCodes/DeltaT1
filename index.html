@@ -1,6 +1,7 @@
 <html>
 <head>
 <title>Calorie Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -8,9 +9,10 @@
 <body>
 <h1>Calorie tracker</h1>
 <div id="personal-details-form">
-    Age : <input type="number" id="age-ip"><br>
-    Height : <input type="number" id="height-ip"><br>
-    Weight : <input type="number" id="weight-ip"><br>
+    Please enter your details: <br><br>
+    Age (years) : <input type="number" id="age-ip"><br>
+    Height (cm): <input type="number" id="height-ip"><br>
+    Weight (kg): <input type="number" id="weight-ip"><br>
 
     <select id="activity-select">
         <option value=""> Choose physical activity</option>
@@ -55,7 +57,13 @@
     <h3> Food Info </h3>
 
     Calories consumed today :
-    <div id="food-progess" class="progress"></div>
+    <div id="food-progess-container" class="progress">
+            <!-- <div id="food-progress-bar"></div> -->
+        <div id="food-progess" class=""></div>
+            
+    </div>
+
+    <!-- </div> -->
     <br>
     Water consumed today :
     <div id="water-progess" class="progress"></div> 
