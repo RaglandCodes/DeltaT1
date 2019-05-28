@@ -1,0 +1,38 @@
+html, body{
+    width: 96%;
+    height: 100%;
+    margin: 0 2%;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+
+}
+.hidden{
+    display: none;
+}
+
+button{
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+    font-size: 17px;
+    font-family: 'Poppins', sans-serif;
+
+}
+button:hover, button:active{
+    color: white;
+    background-color: black;
+}
+body{
+    
+}
+
+h1{
+    text-align: center;
+}
+#new-food-div{
+    background-color: #FFFDE7;
+}
+
+#new-water-div{
+    border: 1px solid cyan;
+}

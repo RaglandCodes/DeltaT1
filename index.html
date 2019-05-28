@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>Calorie Tracker</title>
+<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<h1>Calorie tracker</h1>
+<div id="personal-details-form">
+    Age : <input type="number" id="age-ip"><br>
+    Height : <input type="number" id="height-ip"><br>
+    Weight : <input type="number" id="weight-ip"><br>
+
+    <select id="activity-select">
+        <option value=""> Choose physical activity</option>
+        <option value="1.53">👨‍💻 Sedentary / light activity</option>
+        <option value="1.76">🚶‍♂️️ Moderately active</option>
+        <option value="2.25">🚴‍♂️ Vigorously active</option>
+    </select><br>
+    <select id="gender-select">
+        <option value=""> Choose gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+    </select><br>
+    <button id="submit-personal-details-btn">OK</button>
+    <!-- <input type="number" -->
+</div>
+<div id="show-personal-details">
+
+</div>
+
+<div id="add-btn-container" class="hidden">
+<br>
+    <button id="add-food-btn"  >Add Food </button>
+<br>
+</div>
+
+
+<div id="new-food-div" class="hidden">
+<br>
+    Please enter nutrient content in grams <br>
+    Name :         <input type="text" id="ip-food-name"><br>
+    Carbohydrates :<input type="number" id="ip-carb"><br>
+    Fats         :         <input type="number" id="ip-fat"><br>
+    Protiens     :<input type="number" id="ip-protien"><br>
+    Water (ml)   :  <input type="number" id="ip-water">
+    <br>
+    <button id="submit-food-btn"> OK </button>    
+    <br><br>
+</div>
+
+
+<div id="show-food-info">
+    <div id="food-progess"></div>
+    <div id="water-progess"></div> 
+    <div id="show-food-list">
+
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
