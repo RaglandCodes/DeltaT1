@@ -1,78 +1,86 @@
 <html>
-<head>
-<title>Calorie Tracker</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-</head>
+  <head>
+    <title>Calorie Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<body>
-<h1>Calorie tracker</h1>
-<div id="personal-details-form">
-    Please enter your details: <br><br>
-    Age (years) : <input type="number" id="age-ip"><br>
-    Height (cm): <input type="number" id="height-ip"><br>
-    Weight (kg): <input type="number" id="weight-ip"><br>
+  <body>
+    <h1>Calorie tracker</h1>
+    <div id="personal-details-form">
+      Please enter your details: <br /><br />
 
-    <select id="activity-select">
-        <option value=""> Choose physical activity</option>
+      <div class="ip-label">Height (cm):</div>
+      <input type="number" id="height-ip" placeholder="Height (cm)" /><br />
+      <div class="ip-label">Weight (kg):</div>
+      <input type="number" id="weight-ip" /><br />
+      <div class="ip-label">Age (years) :</div>
+      <input type="number" id="age-ip" /><br />
+
+      <div class="ip-label">Gender</div>
+      <select id="gender-select">
+        <option value=""> Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option> </select
+      ><br />
+      <div class="ip-label">Physical activity :</div>
+      <select id="activity-select">
+        <option value=""> Physical activity</option>
         <option value="1.53"> Sedentary / light activity</option>
         <option value="1.76">️ Moderately active</option>
         <option value="2.25"> Vigorously active</option>
-    </select><br>
-    <select id="gender-select">
-        <option value=""> Choose gender</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-    </select><br>
-    <button id="submit-personal-details-btn">OK</button>
-    <!-- <input type="number" -->
-</div>
-<div id="show-personal-details">
+      </select>
+      <br />
 
-</div>
+      <button id="submit-personal-details-btn">OK</button>
+    </div>
+    <div id="show-personal-details"></div>
 
-<div id="add-btn-container" class="hidden">
-<br>
-    <button id="add-food-btn"  >Add Food </button>
-<br>
-</div>
+    <div id="add-btn-container" class="hidden">
+      <br />
+      <button id="add-food-btn">Add Food</button>
+      <br />
+    </div>
 
+    <div id="new-food-div" class="hidden">
+      <br />
+      Please enter nutrient content in grams <br />
+      <div class="ip-label">Name :</div>
+      <input type="text" id="ip-food-name" /><br />
+      <div class="ip-label">Carbohydrates :</div>
+      <input type="number" id="ip-carb" /><br />
+      <div class="ip-label">Fats :</div>
+      <input type="number" id="ip-fat" /><br />
+      <div class="ip-label">Protiens :</div>
+      <input type="number" id="ip-protien" /><br />
+      <div class="ip-label">Water (ml) :</div>
+      <input type="number" id="ip-water" />
+      <br />
+      <button id="submit-food-btn">OK</button>
+      <br /><br />
+    </div>
 
-<div id="new-food-div" class="hidden">
-<br>
-    Please enter nutrient content in grams <br>
-    Name :         <input type="text" id="ip-food-name"><br>
-    Carbohydrates :<input type="number" id="ip-carb"><br>
-    Fats         :         <input type="number" id="ip-fat"><br>
-    Protiens     :<input type="number" id="ip-protien"><br>
-    Water (ml)   :  <input type="number" id="ip-water">
-    <br>
-    <button id="submit-food-btn"> OK </button>    
-    <br><br>
-</div>
+    <div id="show-food-info" class="hidden">
+      <h3>Food Info</h3>
 
-
-<div id="show-food-info" class="hidden">
-    <h3> Food Info </h3>
-
-    Calories consumed today :
-    <div id="food-progess-container" class="progress">
-            <!-- <div id="food-progress-bar"></div> -->
+      Calories consumed today :
+      <div id="food-progess-container" class="progress">
+        <!-- <div id="food-progress-bar"></div> -->
         <div id="food-progess" class=""></div>
-            
+      </div>
+
+      <br />
+      Water consumed today :
+      <div id="water-progess" class="progress"></div>
+      <br />
+      <div id="show-food-list"></div>
     </div>
 
-    <!-- </div> -->
-    <br>
-    Water consumed today :
-    <div id="water-progess" class="progress"></div> 
-    <br>
-    <div id="show-food-list">
-
-    </div>
-</div>
-
-<script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>

@@ -60,9 +60,11 @@ let Person = class {
   }
 
   get dailyCalories() {
-    return this.calcDailyCalories();
+    return Math.floor(this.calcDailyCalories());
   }
   calcDailyCalories() {
+    //calories that the person must consume everyday
+    //Calcultated using a Harris-Benedic equation
     return (
       (10 * this.weight +
         6.25 * this.height -
@@ -74,11 +76,13 @@ let Person = class {
 };
 
 if (localStorage.getItem("person")) {
+  //checks if a user has already used the website
   showPersonalDetails(JSON.parse(localStorage.getItem("person")));
   foodsList = JSON.parse(localStorage.getItem("foodsList"));
   caloriesConsumedToday = Number(localStorage.getItem("caloriesConsumedToday"));
   waterConsumedToday = Number(localStorage.getItem("waterConsumedToday"));
-  refreshFoodList();
+
+  refreshFoodList(); // Shows the list of foods in the foodsList array
 } else {
 }
 
@@ -90,6 +94,7 @@ btnSubmitPersonalInfo.addEventListener("click", () => {
     !inputActivity.value ||
     !inputGender.value
   ) {
+    // checks for empty inputs
     alert(" ⚠ All fields are compulsary ");
   } else {
     let person = new Person(
@@ -100,38 +105,22 @@ btnSubmitPersonalInfo.addEventListener("click", () => {
       inputActivity.value
     );
     if (person.dailyCalories < 10) {
-      alert("Please senter proper values");
+      // checks for impossible inputs
+      alert("Please enter proper values");
     } else {
       console.log(`${JSON.stringify(person)} 👈 new person`);
       localStorage.setItem("person", JSON.stringify(person));
       localStorage.setItem("recomendedCalories", person.dailyCalories);
-      divInputDetails.classList.add("hidden");
-      divShowPersonalDetails.classList.remove("hidden");
-      divAddBtnContainer.classList.remove("hidden");
 
-      divShowPersonalDetails.innerHTML = `
-        Height   :  ${person.height} cm<br>
-        Weight   :  ${person.weight} kg<br>
-        Age      :  ${person.age}  years<br>
-        Gender   :  ${person.gender} <br>
-        Activity :  ${
-          person.activity == 1.53
-            ? "Sedentary/Light activity"
-            : person.activity == 1.76
-            ? "Moderately active"
-            : "Vigorously active"
-        } <br>
-        Recomended Calories per day : ${Math.floor(person.dailyCalories)}
-        <br><br>
-        <button id="edit-personal-details" onClick="editPersonelDetails()">Edit personal details</button>
-        `;
+      showPersonalDetails(person);
 
-        refreshFoodList();
+      refreshFoodList();
     }
   }
 });
 
 btnAddFood.addEventListener("click", () => {
+  // show the div with the input fields for adding a new food
   divAddBtnContainer.classList.add("hidden");
   divNewFood.classList.remove("hidden");
 });
@@ -146,9 +135,6 @@ btnSubmitFood.addEventListener("click", () => {
   ) {
     alert(" ⚠ All fields are compulsary ");
   } else {
-
-    
-
     let newFood = new Food(
       inputProtien.value,
       inputFat.value,
@@ -162,13 +148,13 @@ btnSubmitFood.addEventListener("click", () => {
 
     // newFood = { ...newFood, calories: newFood.calories };
     refreshFoodList(newFood, "add");
-    
+
     // Reset  the values in the input field
-    inputProtien.value  = '';
-    inputFoodName.value = '';
-    inputFat.value  ='';
-    inputCarbohydrate.value =''
-    inputWater.value = '';
+    inputProtien.value = "";
+    inputFoodName.value = "";
+    inputFat.value = "";
+    inputCarbohydrate.value = "";
+    inputWater.value = "";
   }
 });
 
@@ -194,14 +180,89 @@ function showPersonalDetails(person) {
           "recomendedCalories"
         )}
 
-        <button id="edit-personal-details" onClick="editPersonelDetails()">Edit</button>
+        <button id="edit-personal-details" onClick="editPersonelDetails()"><i class="fas fa-user-edit"></i></button>
         `;
 }
 function editPersonelDetails() {
+  let oldDetails = JSON.parse(localStorage.getItem("person"));
+
+  inputAge.value = oldDetails.age;
+  inputWeight.value = oldDetails.weight;
+  inputHeight.value = oldDetails.height;
+  inputGender.value = oldDetails.gender;
+  inputActivity.value = oldDetails.activity;
+
   divInputDetails.classList.remove("hidden");
   divShowPersonalDetails.classList.add("hidden");
 }
 
+function showEditFoodForm(id) {
+  let editingFoodIndex = foodsList.findIndex(f => f.id == id);
+
+  let editingFood = foodsList[editingFoodIndex];
+  caloriesConsumedToday -= editingFood.calories;
+  waterConsumedToday -= editingFood.water;
+
+  let divFoodToEdit = document.querySelector(`#food${id}`);
+  divFoodToEdit.classList.add("editing");
+  divFoodToEdit.innerHTML = `
+  <h4>Edit your food</h4>
+  <div class="ip-label">Name :</div>
+      <input type="text" id="edit-food-name" value="${
+        editingFood.name
+      }" /><br />
+      <div class="ip-label">Carbohydrates :</div>
+      <input type="number" id="edit-carb" value="${
+        editingFood.carbohydrate
+      }"/><br />
+      <div class="ip-label">Fats :</div>
+      <input type="number" id="edit-fat" value="${editingFood.fat}"/><br />
+      <div class="ip-label">Protiens :</div>
+      <input type="number" id="edit-protien" value="${
+        editingFood.protien
+      }" /><br />
+      <div class="ip-label">Water (ml) :</div>
+      <input type="number" id="edit-water" value="${editingFood.water}"/>
+      <br />
+      <button id="submit-edit-food-btn" onClick="updateFood(${id}, ${editingFoodIndex})">OK</button>
+      <br /><br />
+  `;
+}
+
+function updateFood(foodID, foodIndex) {
+  let divFoodToEdit = document.querySelector(`#food${foodID}`);
+
+  if (
+    !divFoodToEdit.querySelector("#edit-protien").value ||
+    !divFoodToEdit.querySelector("#edit-fat").value ||
+    !divFoodToEdit.querySelector("#edit-carb").value ||
+    !divFoodToEdit.querySelector("#edit-water").value ||
+    !divFoodToEdit.querySelector("#edit-food-name").value
+  ) {
+    alert("Hey, all fields are compulsary");
+  } else {
+
+
+    
+    
+    let newFood = new Food(
+      divFoodToEdit.querySelector("#edit-protien").value,
+      divFoodToEdit.querySelector("#edit-fat").value,
+      divFoodToEdit.querySelector("#edit-carb").value,
+      divFoodToEdit.querySelector("#edit-water").value,
+      divFoodToEdit.querySelector("#edit-food-name").value
+    );
+
+    caloriesConsumedToday += newFood.calories;
+    waterConsumedToday += Number(newFood.water);
+
+    newFood = { ...newFood, id: foodID }; // to use the old ID
+
+    foodsList[foodIndex] = newFood;
+    refreshFoodList();
+    console.log(`${JSON.stringify(newFood)} 👈 refreshed food obj`);
+  }
+}
 function refreshFoodList(food, action) {
   if (action === "add") {
     foodsList.push(food);
@@ -216,6 +277,7 @@ function refreshFoodList(food, action) {
     foodsList.splice(indexToDelete, 1);
   }
 
+  // Deletes all the items in the DOM and shows every item in the list again
   localStorage.setItem("foodsList", JSON.stringify(foodsList));
   localStorage.setItem("caloriesConsumedToday", caloriesConsumedToday);
   localStorage.setItem("waterConsumedToday", waterConsumedToday);
@@ -227,28 +289,38 @@ function refreshFoodList(food, action) {
   console.log(`${JSON.stringify(foodsList)} 👈 latest food list`);
 
   if (foodsList.length > 0) {
-
     divShowFoodContainer.classList.remove("hidden");
-    //divFoodList.innerHTML = `<h3> Food eaten </h3>`;
     for (const food of foodsList) {
       console.log(`${food.name} 👈 fnmae`);
       divFoodList.innerHTML += `
-      <b> ${food.name} </b>    
-      ${food.calories} kCalories
-      <button id="deleteFood" onClick = 'refreshFoodList(${JSON.stringify(
+      <div id="food${food.id}" class="show-food-container">
+      <div class="show-food-name"> ${food.name} </div>    
+      <div class="show-food-calories">${food.calories} kCalories </div>
+      <button class="delete-food-button food-button" id="deleteFood" onClick = 'refreshFoodList(${JSON.stringify(
         food
-      )}, "delete")'> Delete this food</button>
-      <br>
+      )}, "delete")'> <i class="fas fa-trash"></i></button>
+      
+      <button class="edit-food-button food-button" onClick="showEditFoodForm('${
+        food.id
+      }')"><i class="fas fa-edit"></i></button>
+      </div>
+      
+
       `;
     } // end of food loop
-    divFoodProgress.innerHTML = `${caloriesConsumedToday< localStorage.getItem('recomendedCalories') ? '👍':'⚠'}${caloriesConsumedToday}kCal / ${localStorage.getItem(
+    divFoodProgress.innerHTML = `${
+      caloriesConsumedToday < localStorage.getItem("recomendedCalories")
+        ? "👍"
+        : "⚠"
+    }${caloriesConsumedToday}kCal / ${localStorage.getItem(
       "recomendedCalories"
     )} kCal`;
-    
-    divWaterProgress.innerHTML = `${waterConsumedToday > 1600 ? '👍' : '⚠'}  ${waterConsumedToday}mL / 2000 mL`;
-    //alert(localStorage.getItem(recomendedCalories));
-  }
-  else{
+
+    divWaterProgress.innerHTML = `${
+      waterConsumedToday > 1600 ? "👍" : "⚠"
+    }  ${waterConsumedToday}mL / 2000 mL`;
+  } else {
+    // if there are no food items, the "Food info" title and calories consumed today aren't shown
     divShowFoodContainer.classList.add("hidden");
   }
 }
