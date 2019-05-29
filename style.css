@@ -8,7 +8,7 @@ html, body{
 }
 input, select{
     padding: 3px;
-    margin: 3px 0;
+    margin: 5px 0;
     font-size: 14px;
      width: 30%; 
      
@@ -40,7 +40,7 @@ h1{
 }
 
 .ip-label{
-    margin: 3px 0;
+    margin: 5px 0;
     /* border: 1px solid pink; */
     width: 20%;
     float: left;
