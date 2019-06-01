@@ -31,6 +31,8 @@ const inputGender = document.querySelector("#gender-select");
 const divShowPersonalDetails = document.querySelector("#show-personal-details");
 
 const divDate = document.querySelector("#div-date");
+
+// because getMonth() returns value in 0-11.
 const months = [
   "January",
   "February",
@@ -48,10 +50,11 @@ const months = [
 const ordinal = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th']
 
 let timeNow = new Date();
-let dateLastDigit = timeNow.getDate() < 10 ? timeNow.getDate() : timeNow.getDate() % 10;
-console.log(`${dateLastDigit} 👈`);
+let dateLastDigit = timeNow.getDate() < 10 ? timeNow.getDate() : timeNow.getDate() % 10; //last digit needed to use ordinal
 
 divDate.innerHTML = `${timeNow.getDate()}<sup>${ordinal[dateLastDigit]}</sup> ${months[timeNow.getMonth()]}    ${timeNow.getUTCFullYear()}`
+
+
 let Food = class {
   constructor(protien, fat, carbohydrate, water, name) {
     this.id = new Date().getTime();
@@ -155,6 +158,8 @@ btnSubmitFood.addEventListener("click", () => {
     !inputCarbohydrate.value ||
     !inputWater.value
   ) {
+
+    // Checks for empty input fields
     alert(" ⚠ All fields are compulsary ");
   } else {
     let newFood = new Food(
@@ -181,6 +186,9 @@ btnSubmitFood.addEventListener("click", () => {
 });
 
 function showPersonalDetails(person) {
+
+  // gets called after user has entered mostly proper personel info
+  // hides the form and shows info 
   divInputDetails.classList.add("hidden");
   divShowPersonalDetails.classList.remove("hidden");
   divAddBtnContainer.classList.remove("hidden");
@@ -205,9 +213,12 @@ function showPersonalDetails(person) {
         <button id="edit-personal-details" onClick="editPersonelDetails()"><i class="fas fa-user-edit"></i></button>
         `;
 }
+
 function editPersonelDetails() {
   let oldDetails = JSON.parse(localStorage.getItem("person"));
 
+
+  // fills the form so that user only has to make changes and not fill the entire thing again
   inputAge.value = oldDetails.age;
   inputWeight.value = oldDetails.weight;
   inputHeight.value = oldDetails.height;
@@ -219,6 +230,8 @@ function editPersonelDetails() {
 }
 
 function showEditFoodForm(id) {
+
+  
   let editingFoodIndex = foodsList.findIndex(f => f.id == id);
 
   let editingFood = foodsList[editingFoodIndex];
@@ -282,6 +295,8 @@ function updateFood(foodID, foodIndex) {
   }
 }
 function refreshFoodList(food, action) {
+
+  // this function always removes the foods and displays everything again,
   if (action === "add") {
     foodsList.push(food);
 
