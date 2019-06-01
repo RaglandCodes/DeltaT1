@@ -30,6 +30,28 @@ const inputGender = document.querySelector("#gender-select");
 
 const divShowPersonalDetails = document.querySelector("#show-personal-details");
 
+const divDate = document.querySelector("#div-date");
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+];
+const ordinal = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th']
+
+let timeNow = new Date();
+let dateLastDigit = timeNow.getDate() < 10 ? timeNow.getDate() : timeNow.getDate() % 10;
+console.log(`${dateLastDigit} 👈`);
+
+divDate.innerHTML = `${timeNow.getDate()}<sup>${ordinal[dateLastDigit]}</sup> ${months[timeNow.getMonth()]}    ${timeNow.getUTCFullYear()}`
 let Food = class {
   constructor(protien, fat, carbohydrate, water, name) {
     this.id = new Date().getTime();
@@ -241,10 +263,6 @@ function updateFood(foodID, foodIndex) {
   ) {
     alert("Hey, all fields are compulsary");
   } else {
-
-
-    
-    
     let newFood = new Food(
       divFoodToEdit.querySelector("#edit-protien").value,
       divFoodToEdit.querySelector("#edit-fat").value,
